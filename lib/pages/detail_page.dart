@@ -28,8 +28,8 @@ class _DetailPageState extends State<DetailPage> {
         centerTitle: true,
         backgroundColor: Colors.orange,
         title: Text(
-          "Detail",
-          style: TextStyle(fontSize: 30.t),
+          widget.item?.name ?? '',
+          style: TextStyle(fontSize: 35.t),
         ),
       ),
       body: Container(
@@ -39,16 +39,21 @@ class _DetailPageState extends State<DetailPage> {
           // mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              widget.item?.name ?? '',
-              style: TextStyle(fontSize: 25.t),
-            ),
-            IconButton(
-                onPressed: onClickFavorite,
-                icon: Icon(
-                  isFavoriteCheck ? Icons.favorite : Icons.favorite_border,
-                  size: 30.w,
-                )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Add to favorite",
+                  style: TextStyle(fontSize: 20.t),
+                ),
+                IconButton(
+                    onPressed: onClickFavorite,
+                    icon: Icon(
+                      isFavoriteCheck ? Icons.favorite : Icons.favorite_border,
+                      size: 30.w,
+                    ))
+              ],
+            )
           ],
         ),
       ),
