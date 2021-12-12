@@ -1,3 +1,4 @@
+import 'package:coin/pages/coin_responsitory.dart';
 import 'package:coin/pages/favourite_page.dart';
 import 'package:coin/pages/search_coin_page.dart';
 import 'package:coin/pages/top_100coin_page.dart';
@@ -5,7 +6,10 @@ import 'package:coin/pages/top_5coin_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  CoinResponsitory coinResponsitory = CoinResponsitory();
+  await coinResponsitory.initDatabase();
   runApp(const MyApp());
 }
 

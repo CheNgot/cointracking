@@ -19,7 +19,7 @@ class _Top5CoinPageState extends State<Top5CoinPage> {
   void initState() {
     super.initState();
     listTopAll = CoinResponsitory.listCoinModel;
-    listTopAll.sort((a,b) => b.marketCapChangePercentage24h.compareTo(a.marketCapChangePercentage24h));
+    listTopAll.sort((a,b) => (b.marketCapChangePercentage24h??0).compareTo(a.marketCapChangePercentage24h??0));
     listTop5Coin = listTopAll.take(5).toList();
     print('listCoinModel::'+ listTop5Coin.toString());
   }

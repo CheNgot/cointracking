@@ -1,4 +1,5 @@
 import 'package:coin/models/coin_model.dart';
+import 'package:coin/pages/coin_responsitory.dart';
 import 'package:coin/utils/dimens.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,14 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  bool isFavoriteCheck = true;
+  bool isFavoriteCheck = false;
+  CoinResponsitory coinResponsitory = CoinResponsitory();
+
+  @override
+  void initState() {
+    checkFavorite();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +56,43 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   void onClickFavorite() {
-    isFavoriteCheck = !isFavoriteCheck;
-    setState(() {});
+    print("clickFavo");
+    coinResponsitory.checkFavor(widget.item).then((isFavorite) {
+      if (isFavorite) {
+        print("isFavorite::" + isFavorite.toString());
+
+        CoinResponsitory.coinDao?.removeCoin(widget.item!);
+        isFavoriteCheck = false;
+        print("isFavoriteCheck::" + isFavoriteCheck.toString());
+
+        setState(() {});
+      } else {
+        print("isFavorite::" + isFavorite.toString());
+        CoinResponsitory.coinDao?.insertCoin(widget.item!);
+        isFavoriteCheck = true;
+        print("isFavoriteCheck::" + isFavoriteCheck.toString());
+
+        setState(() {});
+      }
+    });
+  }
+
+  void checkFavorite() {
+    coinResponsitory.checkFavor(widget.item).then((isFavorite) {
+      if (isFavorite) {
+        print("isFavorite::" + isFavorite.toString());
+
+        isFavoriteCheck = true;
+        print("isFavoriteCheck::" + isFavoriteCheck.toString());
+
+        setState(() {});
+      } else {
+        print("isFavorite::" + isFavorite.toString());
+        isFavoriteCheck = false;
+        print("isFavoriteCheck::" + isFavoriteCheck.toString());
+
+        setState(() {});
+      }
+    });
   }
 }
